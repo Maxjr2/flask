@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Web UI</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+	<header>
+		<div class="logo">
+			<img src="{{ url_for('static', filename='logo.png') }}" alt="My Logo">
+		</div>
+		<div class="search">
+			<input type="text" placeholder="Search...">
+			<button type="submit">Search</button>
+		</div>
+    <div class="toggle">
+      <input type="checkbox" id="toggle-switch">
+      <label for="toggle-switch"></label>
+    </div>
+	</header>
+	<main>
+		<div class="row">
+			<h2 class="title">Title 1</h2>
+			<div class="content">
+				<a href="{{ url_for('detail', title='Title 1') }}">
+					<img src="{{ url_for('static', filename='image1.png') }}" alt="Image 1">
+					<h3>Subtitle 1</h3>
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<h2 class="title">Title 2</h2>
+			<div class="content">
+				<a href="{{ url_for('detail', title='Title 2') }}">
+					<img src="{{ url_for('static', filename='image2.png') }}" alt="Image 2">
+					<h3>Subtitle 2</h3>
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<h2 class="title">Title 3</h2>
+			<div class="content">
+				<a href="{{ url_for('detail', title='Title 3') }}">
+					<img src="{{ url_for('static', filename='image3.png') }}" alt="Image 3">
+					<h3>Subtitle 3</h3>
+				</a>
+			</div>
+		</div>
+	</main>
+  <script>
+    const toggleSwitch = document.querySelector('#toggle-switch');
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme) {
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      if (currentTheme === 'dark') {
+        toggleSwitch.checked = true;
+      }
+    }
+    function switchTheme(e) {
+      if (e.target.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+    toggleSwitch.addEventListener('change', switchTheme, false);
+  </script>
+</body>
+</html>
