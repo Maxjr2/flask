@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  mariadb-master:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: examplepassword
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    volumes:
+      - ./master:/var/lib/mysql
+      - ./initdb:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    networks:
+      - mariadb-network
+
+  mariadb-slave1:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: examplepassword
+    volumes:
+      - ./slave1:/var/lib/mysql
+    networks:
+      - mariadb-network
+
+  mariadb-slave2:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: examplepassword
+    volumes:
+      - ./slave2:/var/lib/mysql
+    networks:
+      - mariadb-network
+
+networks:
+  mariadb-network:
+
+volumes:
+  master:
+  slave1:
+  slave2:
+  initdb:
+    driver: local
