@@ -26,6 +26,14 @@ CREATE TABLE story (
   posted_date DATE,
   series_id INT NULL,
   series_index INT,
+  storage_id INT,
   FOREIGN KEY (author_id) REFERENCES author(id),
   FOREIGN KEY (series_id) REFERENCES series(id)
+);
+
+CREATE TABLE stry_data (
+  id INT PRIMARY KEY,
+  data LONGTEXT,
+  story_id INT,
+  FOREIGN KEY (story_id) REFERENCES story(id)
 );
